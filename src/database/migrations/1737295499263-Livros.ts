@@ -1,11 +1,11 @@
-import { MigrationInterface, QueryRunner,Table } from "typeorm"
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class Authors1737291081731 implements MigrationInterface {
+export class Livros1737295499263 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-              name: "authors",
+              name: "books",
               columns: [
                 {
                   name: "id",
@@ -15,27 +15,35 @@ export class Authors1737291081731 implements MigrationInterface {
                   generationStrategy: "increment",
                 },
                 {
-                  name: "name",
+                  name: "title",
                   type: "varchar",
                   isNullable: false,
                 },
                 {
-                  name: "birthdate",
-                  type: "date",
-                },
-                {
-                  name: "biography",
+                  name: "description",
                   type: "text",
+                  isNullable: true,
                 },
                 {
-                  name: "nationality",
-                  type: "varchar",
+                  name: "publication_date",
+                  type: "date",
                   isNullable: false,
                 },
                 {
-                  name: "active",
-                  type: "boolean",
-                  default: true,
+                  name: "isbn",
+                  type: "varchar",
+                  isNullable: false,
+                  isUnique: true,
+                },
+                {
+                  name: "page_count",
+                  type: "int",
+                  isNullable: true,
+                },
+                {
+                  name: "language",
+                  type: "varchar",
+                  isNullable: true,
                 },
                 {
                   name: "created_at",
@@ -50,10 +58,12 @@ export class Authors1737291081731 implements MigrationInterface {
               ],
             })
           );
+
+
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-      await queryRunner.dropTable("authors");
+        await queryRunner.dropTable("books");
     }
 
 }
